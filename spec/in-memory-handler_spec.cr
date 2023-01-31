@@ -32,23 +32,23 @@ describe HTTP::InMemoryFileHandler do
   end
 
   it "works for unknown mime type" do
-    handler = HTTP::InMemoryFileHandler.for("#{__DIR__}/fixtures/some.md")
+    handler = HTTP::InMemoryFileHandler.for("#{__DIR__}/fixtures/some.unknown")
 
     response = request handler, "/some"
 
     response.status_code.should eq 200
     response.headers["Content-Type"].should eq "application/octet-stream"
-    response.body.lines.first.should eq "# Some Markdown Header"
+    response.body.lines.first.should eq "Some unknown data"
   end
 
   it "works for unknown mime type with forced parameter" do
-    handler = HTTP::InMemoryFileHandler.for("#{__DIR__}/fixtures/some.md", mime: "text/markdown")
+    handler = HTTP::InMemoryFileHandler.for("#{__DIR__}/fixtures/some.unknown", mime: "text/plain")
 
     response = request handler, "/some"
 
     response.status_code.should eq 200
-    response.headers["Content-Type"].should eq "text/markdown; charset=utf-8"
-    response.body.lines.first.should eq "# Some Markdown Header"
+    response.headers["Content-Type"].should eq "text/plain; charset=utf-8"
+    response.body.lines.first.should eq "Some unknown data"
   end
 
   it "works for HEAD requests" do
@@ -182,11 +182,11 @@ describe HTTP::InMemoryDirectoryHandler do
   it "works for unknown mime" do
     handler = HTTP::InMemoryDirectoryHandler.for("#{__DIR__}/fixtures/folder")
 
-    response = request handler, "/deeper/some.md"
+    response = request handler, "/deeper/some.unknown"
 
     response.status_code.should eq 200
     response.headers["Content-Type"].should eq "application/octet-stream"
-    response.body.lines.first.should eq "# Some Markdown Header"
+    response.body.lines.first.should eq "Some unknown data"
   end
 
   it "works for HEAD requests" do
