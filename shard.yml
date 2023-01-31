@@ -1,0 +1,17 @@
+name: in-memory-handler
+
+version: 1.0.0
+
+crystal: ">= 1.6.0"
+
+description: |
+  HTTP handler to serve files directly from memory,
+  allowing all static data to be compiled
+  into a single binary file
+
+repository: "https://github.com/Xanders/in-memory-handler"
+
+authors:
+  - Xanders
+
+license: MIT
